@@ -11,7 +11,10 @@ import (
 )
 
 var outCmd = &cobra.Command{
-	Use: "out",
+	Use:   "out",
+	Short: "Outputs the secret",
+	Long:  "Outputs the specified secret to stdout (useful for referencing in scripts ala $(lpc out secret.name))",
+	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		accounts, err := lpc.GetSecrets(context.Background(), username, password, trusted)
 

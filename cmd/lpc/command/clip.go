@@ -12,7 +12,10 @@ import (
 )
 
 var clipCmd = &cobra.Command{
-	Use: "clip",
+	Use:   "clip",
+	Short: "Sends secret to clipboard",
+	Long:  "Retries a specified secret from LastPass and puts it into the clipboard for pasting",
+	Args:  cobra.MinimumNArgs(1),
 	Run: func(cmd *cobra.Command, args []string) {
 		accounts, err := lpc.GetSecrets(context.Background(), username, password, trusted)
 
@@ -31,9 +34,9 @@ var clipCmd = &cobra.Command{
 
 		if acct != nil {
 			clipboard.WriteAll(acct.Password)
-			fmt.Printf("written to clipboard.\n")
+			fmt.Printf("%s written to clipboard.\n", args[0])
 		} else {
-			fmt.Printf("not found.\n")
+			fmt.Printf("%s not found.\n", args[0])
 		}
 	},
 }
